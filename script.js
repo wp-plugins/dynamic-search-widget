@@ -5,18 +5,27 @@ jQuery(document).ready(function($) {
 	if ( ! $(".dynsw-search").length ) {
 		$(".widget_dynsw").css('display', 'none');
 	}
-	$.each(options['search_fields'], function(i, value) {
-		var search_field = value;
-		$(search_field).keyup(function() {
-			if ( $(search_field).val().length > 1 ) {
-				delay(function(){
-					$(".widget_dynsw").slideDown("fast");
-					$(".dynsw-loader").css('display', 'inline');
-					$.dynsw_post_request( 'dynsw_search_similars', $(search_field).val());
-				}, 500 );			
-			} 
+
+	var search_fields = options['search_fields'];
+
+	$.each(search_fields, function(i, value) {
+		var search_term = new Array(2);
+		$(value).keyup(function() {				
+			if ( search_term[i] != $.trim($(this).val())) {
+				search_term[i] = $.trim($(this).val());
+				$(search_fields[1]).val( search_term[i] );
+				if ( search_term[i].length > 2 ) {					
+					delay(function(){						
+			    		$(".widget_dynsw").slideDown("fast");
+						$(".dynsw-loader").css('display', 'inline');
+						$.dynsw_post_request( 'dynsw_search_similars', search_term[i]);
+			    	}, 500 );
+				}
+			}
 		});
 	});
+
+
 	$.dynsw_post_request = function( action, data ) {
 		var thisData = {
 				action: action,				

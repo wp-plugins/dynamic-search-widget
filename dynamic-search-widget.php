@@ -3,7 +3,7 @@
 Plugin Name: Dynamic Search Widget
 Description: Dynamic flexible ajax search widget. 
 Author: Simeon Ackermann
-Version: 0.13.05
+Version: 0.14.01
 Author URI: http://a-simeon.de
 */
 
@@ -14,7 +14,7 @@ class Dynamic_Search_widget extends WP_Widget {
 
 	protected static $options_default = array(
 			'title'				=> 'Search Widget',
-			'search_field'		=> '#s',
+			'search_field'		=> '.search-field',
 			'show_own_search'	=> 'on',
 			'search_type'		=> 'post',
 			'search_cats'		=> 'on',
@@ -42,11 +42,15 @@ class Dynamic_Search_widget extends WP_Widget {
 	function css() {
 		?><style type="text/css">
 		.dynsw-search {
-			width: 60%;
+			max-width: 100%;
+			margin-bottom: 18px;
 		}
 		.dynsw-loader {
 			text-align: center;
 			margin: auto auto;
+			display: none;
+		}
+		.widget_dynsw input[type="submit"] {
 			display: none;
 		}
 		</style><?php
@@ -92,7 +96,7 @@ class Dynamic_Search_widget extends WP_Widget {
 			<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
 		</p>		
 		<p>
-			<label for="<?php echo $this->get_field_id( 'show-own-search' ); ?>"><?php _e( 'Show own Searchfield:', 'dynsw' ); ?></label>
+			<label for="<?php echo $this->get_field_id( 'show-own-search' ); ?>"><?php _e( 'Show widget Searchfield:', 'dynsw' ); ?></label>
 			<input class="checkbox" type="checkbox" id="<?php echo $this->get_field_id( 'show-own-search' ); ?>" name="<?php echo $this->get_field_name( 'show_own_search' ); ?>" <?php checked( $show_own_search, "on" ); ?> />
 		</p>
 		<p>
@@ -115,7 +119,7 @@ class Dynamic_Search_widget extends WP_Widget {
 			<label for="<?php echo $this->get_field_id( 'search-tags' ); ?>"><?php _e( 'Tags' ); ?></label> 
 		</p><p>
 			<input class="checkbox" type="checkbox" id="<?php echo $this->get_field_id( 'search-post-vals' ); ?>" name="<?php echo $this->get_field_name( 'search_post_vals' ); ?>" <?php checked( $search_post_vals, "on" ); ?> />
-			<label for="<?php echo $this->get_field_id( 'search-post-vals' ); ?>"><?php _e( 'Title' ); echo ", "; _e( 'Content' ); ?></label> 
+			<label for="<?php echo $this->get_field_id( 'search-post-vals' ); ?>"><?php _e( 'Title' ); echo " and "; _e( 'Content' ); ?></label> 
 		</p>
 		<?php 
 	}
