@@ -2,7 +2,7 @@
 Contributors: asimeon
 Tags: search, widget
 Requires at least: 3.1
-Tested up to: 3.8
+Tested up to: 4.2
 Stable tag: 0.14.01
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
